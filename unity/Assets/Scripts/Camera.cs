@@ -7,13 +7,10 @@ public class Camera : MonoBehaviour
 
     public Transform player;
 
-    void Start()
-    {
-        
-    }
+    void Start() { }
 
-    void Update()
-    {
+    // Update camera X position to match the attached player
+    void Update() {
         transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
     }
 }

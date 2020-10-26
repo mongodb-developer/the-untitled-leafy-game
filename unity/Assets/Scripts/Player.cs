@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
     private Rigidbody2D rigidbody;
     private bool isGrounded;
 
-    [Range(1, 5)]
+    [Range(1, 10)]
     public float speed;
 
     [Range(1, 10)]
@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate() {
         float horizontalMovement = Input.GetAxis("Horizontal");
+        
         if(Input.GetKey(KeyCode.Space) && isGrounded == true) {
             rigidbody.velocity += Vector2.up * jumpVelocity;
             isGrounded = false;
