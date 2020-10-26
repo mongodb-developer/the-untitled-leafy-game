@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: 55bd57791c1964fef8791a8cdf51339c
+guid: b5105a50e39e8408cb0bfa9de6a10cc8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 749621460533495985
-    second: squares_0
+      213: 5627359011406830739
+    second: leafy_0
   - first:
-      213: -3187214880158366744
-    second: squares_1
+      213: -6538277583400835042
+    second: leafy_1
   - first:
-      213: -9141040792376762641
-    second: squares_2
-  - first:
-      213: -3796469983204507001
-    second: squares_3
+      213: -1757647795564518068
+    second: leafy_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -125,7 +122,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: squares_0
+      name: leafy_0
       rect:
         serializedVersion: 2
         x: 0
@@ -133,20 +130,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b8cb172fb0376a00800000000000000
-      internalID: 749621460533495985
+      spriteID: 39c5f72b435681e40800000000000000
+      internalID: 5627359011406830739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: squares_1
+      name: leafy_1
       rect:
         serializedVersion: 2
         x: 128
@@ -154,20 +151,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e3425df3fcb4c3d0800000000000000
-      internalID: -3187214880158366744
+      spriteID: e186e7edd2f5345a0800000000000000
+      internalID: -6538277583400835042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: squares_2
+      name: leafy_2
       rect:
         serializedVersion: 2
         x: 256
@@ -175,35 +172,14 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fee1705a4df742180800000000000000
-      internalID: -9141040792376762641
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: squares_3
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 78289a23aaa305bc0800000000000000
-      internalID: -3796469983204507001
+      spriteID: c45e02174a49b97e0800000000000000
+      internalID: -1757647795564518068
       vertices: []
       indices: 
       edges: []

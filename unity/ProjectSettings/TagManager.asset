@@ -50,6 +50,12 @@ TagManager:
   - name: Platform
     uniqueID: 403913399
     locked: 0
+  - name: Walls
+    uniqueID: 3410474163
+    locked: 0
+  - name: Question
+    uniqueID: 2529611575
+    locked: 0
   - name: Player
     uniqueID: 1224674297
     locked: 0
