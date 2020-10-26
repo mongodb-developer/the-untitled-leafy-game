@@ -9,7 +9,6 @@ public class Camera : MonoBehaviour
 
     void Start() { }
 
-    // Update camera X position to match the attached player
     void Update() {
         transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
     }

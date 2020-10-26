@@ -39,11 +39,18 @@ public class Player : MonoBehaviour {
         }
 
         rigidbody.velocity = new Vector2(horizontalMovement * speed, rigidbody.velocity.y);
+
+        if(rigidbody.position.y < -10.0f) {
+            rigidbody.position = new Vector2(0.0f, 1.0f);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.name == "Ground" || collision.collider.name == "Platforms") {
             isGrounded = true;
+        }
+        if(collision.collider.name == "Traps") {
+            rigidbody.position = new Vector2(0.0f, 1.0f);
         }
     }
 
