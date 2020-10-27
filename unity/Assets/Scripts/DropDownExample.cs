@@ -2,29 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class DropDownExample : MonoBehaviour
 {
     List<string> answers =  new List<string>() {"True", "False"};
+    //List<string> answers;
 
     public Dropdown dropdown;
-    public text selectedAnswer;
+    public Text selectedAnswer;
     public string id;
-
+    //private DatabaseModel db;
+    private Text questionText;
 
     public void Dropdown_IndexChanged(int index)
 
     {
         selectedAnswer.text = answers[index];
-
     }
 
     void Start()
 
     {
-
+        GameObject go = transform.GetChild(0).gameObject;
+        questionText = go.GetComponent<Text>();
+        //questionText.text = "Hello World";
         PopulateList();
+        //answers = new List<string>();
     }
+
+    // void OnEnable() {
+    //     PopulateList();
+    // }
 
 
 
@@ -32,11 +41,15 @@ public class DropDownExample : MonoBehaviour
     void PopulateList()
 
     {
-         id == "ABCD";
-         StartCoroutine(GetQuestion(id));
-
-       
-        dropdown.AddOptions(answers);
+        //  id == "ABCD";
+         StartCoroutine(GetQuestion("ABCD", result => {
+             if(result != null) {
+                //  Debug.Log(questionText.text);
+                //  Debug.Log(result);
+                 questionText.text = result.question_text;
+                 dropdown.AddOptions(answers);
+             }
+         }));
 
     }
 
