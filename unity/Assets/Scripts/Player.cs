@@ -16,6 +16,8 @@ public class Player : MonoBehaviour {
     [Range(1, 5)]
     public float fallingMultiplier;
 
+    public Score score;
+
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
         isGrounded = true;
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour {
 
         if(rigidbody.position.y < -10.0f) {
             rigidbody.position = new Vector2(0.0f, 1.0f);
+            score.Reset();
         }
     }
 
@@ -51,6 +54,7 @@ public class Player : MonoBehaviour {
         }
         if(collision.collider.name == "Traps") {
             rigidbody.position = new Vector2(0.0f, 1.0f);
+            score.Reset();
         }
     }
 

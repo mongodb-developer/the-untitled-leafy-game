@@ -7,9 +7,12 @@ using System.Text;
 public class Question : MonoBehaviour {
 
     private DatabaseModel question;
+
     public string questionId;
+    public Score score;
 
     void Start() {
+        //score = GetComponent<Score>();
         // DatabaseModel db = new DatabaseModel();
         // db.problem_id = "ABCD";
         // db.answer = true;
@@ -26,6 +29,7 @@ public class Question : MonoBehaviour {
                 question = result;
                 Debug.Log(question.Stringify());
             }));
+            score.AddPoints(1);
         }
     }
 
