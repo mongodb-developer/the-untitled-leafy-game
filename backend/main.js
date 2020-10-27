@@ -11,10 +11,9 @@ server.use(BodyParser.urlencoded({ extended: true }));
 var collection;
 
 server.post("/answer", async (request, response, next) => {
-    console.log(request.body);
     try {
-        let result = await collection.insertOne(request.body);
-        response.send(result);
+        let result = await collection.findOne({ "problem_id": request.body.problem_id, "answer": request.body.answer });
+        response.send(result || {});
     } catch (e) {
         response.status(500).send({ message: e.message });
     }
