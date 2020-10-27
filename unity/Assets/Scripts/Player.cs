@@ -54,4 +54,10 @@ public class Player : MonoBehaviour {
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.name == "Trophy") {
+            Destroy(collider.gameObject);
+        }
+    }
+
 }
