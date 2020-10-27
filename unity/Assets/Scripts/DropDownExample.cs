@@ -32,11 +32,13 @@ public class DropDownExample : MonoBehaviour
     void PopulateList()
 
     {
-         id == "ABCD";
-         StartCoroutine(GetQuestion(id));
+        id == "ABCD";
+       reponse == StartCoroutine(GetQuestion(id));
+       answers == response.answers; 
+
 
        
-        dropdown.AddOptions(answers);
+       
 
     }
 
