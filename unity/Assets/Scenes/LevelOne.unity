@@ -1467,6 +1467,7 @@ MonoBehaviour:
   speed: 5
   jumpVelocity: 9
   fallingMultiplier: 4
+  score: {fileID: 889295138}
 --- !u!212 &1654229518
 SpriteRenderer:
   m_ObjectHideFlags: 0
