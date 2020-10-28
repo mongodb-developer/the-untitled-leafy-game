@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rb2d;
     private bool isGrounded;
 
     [Range(1, 10)]
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
     public Score score;
 
     void Start() {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb2d = GetComponent<Rigidbody2D>();
         isGrounded = true;
     }
 
@@ -29,21 +29,21 @@ public class Player : MonoBehaviour {
         float horizontalMovement = Input.GetAxis("Horizontal");
         
         if(Input.GetKey(KeyCode.Space) && isGrounded == true) {
-            rigidbody.velocity += Vector2.up * jumpVelocity;
+            rb2d.velocity += Vector2.up * jumpVelocity;
             isGrounded = false;
         }
 
-        if (rigidbody.velocity.y < 0) {
-            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallingMultiplier - 1) * Time.fixedDeltaTime;
+        if (rb2d.velocity.y < 0) {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallingMultiplier - 1) * Time.fixedDeltaTime;
         }
-        else if (rigidbody.velocity.y > 0 && !Input.GetKey(KeyCode.Space)) {
-            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallingMultiplier - 1) * Time.fixedDeltaTime;
+        else if (rb2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space)) {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallingMultiplier - 1) * Time.fixedDeltaTime;
         }
 
-        rigidbody.velocity = new Vector2(horizontalMovement * speed, rigidbody.velocity.y);
+        rb2d.velocity = new Vector2(horizontalMovement * speed, rb2d.velocity.y);
 
-        if(rigidbody.position.y < -10.0f) {
-            rigidbody.position = new Vector2(0.0f, 1.0f);
+        if(rb2d.position.y < -10.0f) {
+            rb2d.position = new Vector2(0.0f, 1.0f);
             score.Reset();
         }
     }
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
             isGrounded = true;
         }
         if(collision.collider.name == "Traps") {
-            rigidbody.position = new Vector2(0.0f, 1.0f);
+            rb2d.position = new Vector2(0.0f, 1.0f);
             score.Reset();
         }
     }
