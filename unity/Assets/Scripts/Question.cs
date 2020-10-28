@@ -3,34 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
+using UnityEngine.UI;
 
 public class Question : MonoBehaviour {
 
     private DatabaseModel question;
 
     public string questionId;
+    public GameObject questionModal;
     public Score score;
 
+    private Text questionText;
+    private Dropdown dropdownAnswer;
+    private Button submitButton;
+
     void Start() {
-        //score = GetComponent<Score>();
-        // DatabaseModel db = new DatabaseModel();
-        // db.problem_id = "ABCD";
-        // db.answer = true;
-        // StartCoroutine(CheckAnswer(db.Stringify(), result => {
-        //     Debug.Log("RESULT: " + result);
-        // }));
+        GameObject questionTextGameObject = questionModal.transform.Find("QuestionText").gameObject;
+        questionText = questionTextGameObject.GetComponent<Text>();
+        GameObject submitButtonGameObject = questionModal.transform.Find("SubmitButton").gameObject;
+        submitButton = submitButtonGameObject.GetComponent<Button>();
+        submitButton.onClick.AddListener(SubmitOnClick);
+        GameObject dropdownAnswerGameObject = questionModal.transform.Find("Dropdown").gameObject;
+        dropdownAnswer = dropdownAnswerGameObject.GetComponent<Dropdown>();
     }
 
     void Update() { }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.name == "Player") {
+            questionModal.SetActive(true);
+            Time.timeScale = 0;
             StartCoroutine(GetQuestion(questionId, result => {
-                question = result;
-                Debug.Log(question.Stringify());
+                questionText.text = result.question_text;
             }));
-            score.AddPoints(1);
         }
+    }
+
+    void SubmitOnClick() {
+        DatabaseModel db = new DatabaseModel();
+        db.problem_id = questionId;
+        db.answer = dropdownAnswer.value == 0;
+        StartCoroutine(CheckAnswer(db.Stringify(), result => {
+            Debug.Log("RESULT: " + result);
+            if(result == true) {
+                score.AddPoints(1);
+            }
+            questionModal.SetActive(false);
+            Time.timeScale = 1;
+        }));
     }
 
     IEnumerator GetQuestion(string id, System.Action<DatabaseModel> callback = null)
@@ -65,10 +85,6 @@ public class Question : MonoBehaviour {
                     callback.Invoke(false);
                 }
             } else {
-                Debug.Log(request.downloadHandler.text);
-                // if(request.downloadHandler.text == "{}") {
-                //     Debug.Log("RESPONSE WAS NULL");
-                // }
                 if(callback != null) {
                     callback.Invoke(request.downloadHandler.text != "{}");
                 }
