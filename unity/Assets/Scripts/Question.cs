@@ -53,7 +53,7 @@ public class Question : MonoBehaviour {
 
     IEnumerator GetQuestion(string id, System.Action<DatabaseModel> callback = null)
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:3000/question/" + id))
+        using (UnityWebRequest request = UnityWebRequest.Get("https://webhooks.mongodb-realm.com/api/client/v2.0/app/skunkworks-rptwf/service/webhooks/incoming_webhook/get_question?problem_id=" + id))
         {
             yield return request.SendWebRequest();
             if (request.isNetworkError || request.isHttpError) {
@@ -71,7 +71,7 @@ public class Question : MonoBehaviour {
     }
 
     IEnumerator CheckAnswer(string data, System.Action<bool> callback = null) {
-        using (UnityWebRequest request = new UnityWebRequest("http://localhost:3000/answer", "POST")) {
+        using (UnityWebRequest request = new UnityWebRequest("https://webhooks.mongodb-realm.com/api/client/v2.0/app/skunkworks-rptwf/service/webhooks/incoming_webhook/checkanswer", "POST")) {
             request.SetRequestHeader("Content-Type", "application/json");
             byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(data);
             request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
