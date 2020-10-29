@@ -22,7 +22,6 @@ public class Question : MonoBehaviour {
         questionText = questionTextGameObject.GetComponent<Text>();
         GameObject submitButtonGameObject = questionModal.transform.Find("SubmitButton").gameObject;
         submitButton = submitButtonGameObject.GetComponent<Button>();
-        submitButton.onClick.AddListener(SubmitOnClick);
         GameObject dropdownAnswerGameObject = questionModal.transform.Find("Dropdown").gameObject;
         dropdownAnswer = dropdownAnswerGameObject.GetComponent<Dropdown>();
     }
@@ -35,21 +34,20 @@ public class Question : MonoBehaviour {
             Time.timeScale = 0;
             StartCoroutine(GetQuestion(questionId, result => {
                 questionText.text = result.question_text;
+                submitButton.onClick.AddListener(() =>{SubmitOnClick(result, dropdownAnswer);});
             }));
         }
     }
 
-    void SubmitOnClick() {
-        DatabaseModel db = new DatabaseModel();
-        db.problem_id = questionId;
+    void SubmitOnClick(DatabaseModel db, Dropdown dropdownAnswer) {
         db.answer = dropdownAnswer.value == 0;
         StartCoroutine(CheckAnswer(db.Stringify(), result => {
-            Debug.Log("RESULT: " + result);
             if(result == true) {
                 score.AddPoints(1);
             }
             questionModal.SetActive(false);
             Time.timeScale = 1;
+            submitButton.onClick.RemoveAllListeners();
         }));
     }
 
