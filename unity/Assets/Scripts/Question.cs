@@ -22,7 +22,6 @@ public class Question : MonoBehaviour {
         questionText = questionTextGameObject.GetComponent<Text>();
         GameObject submitButtonGameObject = questionModal.transform.Find("SubmitButton").gameObject;
         submitButton = submitButtonGameObject.GetComponent<Button>();
-        submitButton.onClick.AddListener(SubmitOnClick);
         GameObject dropdownAnswerGameObject = questionModal.transform.Find("Dropdown").gameObject;
         dropdownAnswer = dropdownAnswerGameObject.GetComponent<Dropdown>();
     }
@@ -35,27 +34,26 @@ public class Question : MonoBehaviour {
             Time.timeScale = 0;
             StartCoroutine(GetQuestion(questionId, result => {
                 questionText.text = result.question_text;
+                submitButton.onClick.AddListener(() =>{SubmitOnClick(result, dropdownAnswer);});
             }));
         }
     }
 
-    void SubmitOnClick() {
-        DatabaseModel db = new DatabaseModel();
-        db.problem_id = questionId;
+    void SubmitOnClick(DatabaseModel db, Dropdown dropdownAnswer) {
         db.answer = dropdownAnswer.value == 0;
         StartCoroutine(CheckAnswer(db.Stringify(), result => {
-            Debug.Log("RESULT: " + result);
             if(result == true) {
                 score.AddPoints(1);
             }
             questionModal.SetActive(false);
             Time.timeScale = 1;
+            submitButton.onClick.RemoveAllListeners();
         }));
     }
 
     IEnumerator GetQuestion(string id, System.Action<DatabaseModel> callback = null)
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:3000/question/" + id))
+        using (UnityWebRequest request = UnityWebRequest.Get("https://webhooks.mongodb-realm.com/api/client/v2.0/app/skunkworks-rptwf/service/webhooks/incoming_webhook/get_question?problem_id=" + id))
         {
             yield return request.SendWebRequest();
             if (request.isNetworkError || request.isHttpError) {
@@ -73,7 +71,7 @@ public class Question : MonoBehaviour {
     }
 
     IEnumerator CheckAnswer(string data, System.Action<bool> callback = null) {
-        using (UnityWebRequest request = new UnityWebRequest("http://localhost:3000/answer", "POST")) {
+        using (UnityWebRequest request = new UnityWebRequest("https://webhooks.mongodb-realm.com/api/client/v2.0/app/skunkworks-rptwf/service/webhooks/incoming_webhook/checkanswer", "POST")) {
             request.SetRequestHeader("Content-Type", "application/json");
             byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(data);
             request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);

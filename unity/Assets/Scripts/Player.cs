@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     private Rigidbody2D rb2d;
+    private Animator animator;
     private bool isGrounded;
 
     [Range(1, 10)]
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour {
 
     void Start() {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         isGrounded = true;
     }
 
@@ -27,6 +29,17 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate() {
         float horizontalMovement = Input.GetAxis("Horizontal");
+
+        if(horizontalMovement == 1) {
+            animator.SetBool("isWalkingLeft", false);
+            animator.SetBool("isWalkingRight", true);
+        } else if(horizontalMovement == -1) {
+            animator.SetBool("isWalkingLeft", true);
+            animator.SetBool("isWalkingRight", false);
+        } else {
+            animator.SetBool("isWalkingLeft", false);
+            animator.SetBool("isWalkingRight", false);
+        }
         
         if(Input.GetKey(KeyCode.Space) && isGrounded == true) {
             rb2d.velocity += Vector2.up * jumpVelocity;
